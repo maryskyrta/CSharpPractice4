@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CSharpPractice4.Models;
 
 namespace CSharpPractice4.Tools
@@ -14,6 +10,17 @@ namespace CSharpPractice4.Tools
 
         internal static Person GeneratePerson()
         {
+            Random rand = new Random();
+            int name = rand.Next(Names.Length);
+            int surname = rand.Next(Surnames.Length);
+            string email = $"{name}{surname}@mymail.com";
+            int year = rand.Next(1884,2019);
+            int month = rand.Next(1,12);
+            int day = rand.Next(1, 365);
+            DateTime birthday =  new DateTime(year, month,day);
+            if (birthday > DateTime.Today)
+                birthday = DateTime.Today;
+            return new Person(Names[name], Surnames[surname], email, birthday);
 
         }
     }

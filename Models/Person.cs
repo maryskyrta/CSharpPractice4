@@ -13,6 +13,10 @@ namespace CSharpPractice4.Models
         private string _surname;
         private string _email;
         private DateTime _birthday;
+        private readonly string _isBirthdayToday;
+        private readonly string _isAdult;
+        private readonly string _westernSign;
+        private readonly string _chineseSign; 
 
         #endregion
 
@@ -42,19 +46,20 @@ namespace CSharpPractice4.Models
             get { return _birthday; }
         }
 
-        public bool IsAdult
+        public string IsAdult
         {
+
             get
             {
-                return ((DateTime.Today.Year - _birthday.Year) > 18) || (((DateTime.Today.Year - _birthday.Year) == 18) && (DateTime.Today.DayOfYear >= _birthday.DayOfYear));
+                return _isAdult;
             }
         }
 
-        public bool IsBirthdayToday
+        public string IsBirthdayToday
         {
             get
             {
-                return DateTime.Today.Month == _birthday.Month && DateTime.Today.Day == _birthday.Day;
+                return _isBirthdayToday;
             }
         }
 
@@ -62,17 +67,7 @@ namespace CSharpPractice4.Models
         {
             get
             {
-                var day = _birthday.Day;
-                var month = _birthday.Month;
-                if (month == 1)
-                    return day < 20 ? WesternSigns[WesternSigns.Length - 1] : WesternSigns[month - 1];
-                if (month == 2)
-                    return day < 19 ? WesternSigns[month - 2] : WesternSigns[month - 1];
-                if (month > 2 && month < 7)
-                    return day < 21 ? WesternSigns[month - 2] : WesternSigns[month - 1];
-                if (month > 6 && month < 11)
-                    return day < 23 ? WesternSigns[month - 2] : WesternSigns[month - 1];
-                return day < 22 ? WesternSigns[month - 2] : WesternSigns[month - 1];
+                return _westernSign;
             }
         }
 
@@ -80,7 +75,7 @@ namespace CSharpPractice4.Models
         {
             get
             {
-                return ChineseSigns[_birthday.Year % 12];
+                return _chineseSign;
             }
         }
 
@@ -98,12 +93,54 @@ namespace CSharpPractice4.Models
             _surname = surname;
             _email = email;
             _birthday = birthday;
+            _isAdult = SetIsAdult();
+            _isBirthdayToday = SetIsBirthday();
+            _chineseSign = SetChineseSign();
+            _westernSign = SetWesternSign();
         }
 
 
         #endregion
 
 
+        #region Helping setters
+       
 
+        private string SetWesternSign()
+        {
+        int day = _birthday.Day;
+        int month = _birthday.Month;
+            if (month == 1)
+        return day< 20 ? WesternSigns[WesternSigns.Length - 1] : WesternSigns[month - 1];
+        if (month == 2)
+        return day< 19 ? WesternSigns[month - 2] : WesternSigns[month - 1];
+        if (month > 2 && month< 7)
+        return day< 21 ? WesternSigns[month - 2] : WesternSigns[month - 1];
+        if(month>6&&month<11)
+        return day< 23 ? WesternSigns[month - 2] : WesternSigns[month - 1];
+        return day< 22 ? WesternSigns[month - 2] : WesternSigns[month - 1];
+        }
+
+        private string SetChineseSign()
+        {
+            return ChineseSigns[_birthday.Year % 12];
+        }
+
+        private string SetIsAdult()
+        {
+            if (((DateTime.Today.Year - _birthday.Year) > 18) ||
+                (((DateTime.Today.Year - _birthday.Year) == 18) && (DateTime.Today.DayOfYear >= _birthday.DayOfYear)))
+                return "Adult";
+            return "Not adult";
+        }
+
+        private string SetIsBirthday()
+        {
+            if (DateTime.Today.Month == _birthday.Month && DateTime.Today.Day == _birthday.Day)
+                return "Today";
+            return "Not today";
+        }
+
+        #endregion
     }
 }
