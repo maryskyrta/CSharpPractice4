@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using CSharpPractice4.Models;
+using CSharpPractice4.Tools.Managers;
 
 namespace CSharpPractice4.ViewModels
 {
@@ -10,6 +12,7 @@ namespace CSharpPractice4.ViewModels
         #region Fields
 
         private ObservableCollection<Person> _persons;
+        private static Person _selectedPerson;
 
         #endregion
 
@@ -18,13 +21,28 @@ namespace CSharpPractice4.ViewModels
         public ObservableCollection<Person> Persons
         {
             get { return _persons; }
-            private set
+            set
             {
                 _persons = value;
                 OnPropertyChanged();
             }
         }
+
+        public static Person SelectedPerson
+        {
+            get { return _selectedPerson; }
+            set
+            {
+                _selectedPerson = value;
+            }
+        }
+
         #endregion
+
+        internal PersonListViewModel()
+        {
+            _persons = new ObservableCollection<Person>(StationManager.DataStorage.PersonsList);
+        }
 
 
         #region  INotifyPropertyChanged

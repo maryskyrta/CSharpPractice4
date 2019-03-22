@@ -10,7 +10,7 @@ namespace CSharpPractice4.Tools
 
     internal class DataStorage
     {
-        private readonly List<Person> _persons;
+        private List<Person> _persons;
 
         internal DataStorage()
         {
@@ -29,25 +29,31 @@ namespace CSharpPractice4.Tools
             }
         }
 
-        public void AddUser(Person person)
+        public void AddPerson(Person person)
         {
             _persons.Add(person);
             SaveChanges();
         }
 
-        public List<Person> UsersList
+        public void RemovePerson(Person person)
+        {
+            if (_persons.Contains(person))
+            {
+                _persons.Remove(person);
+                SaveChanges();
+            }
+        }
+
+        public List<Person> PersonsList
         {
             get { return _persons.ToList(); }
         }
 
-        private void SaveChanges()
+        public void SaveChanges()
         {
             SerializationManager.Serialize(_persons, FileFolderHelper.StorageFilePath);
         }
 
-        private void GeneratePersons()
-        {
-
-        }
+        
     }
 }

@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+using System.Windows;
+using CSharpPractice4.Tools.Exceptions;
+using CSharpPractice4.Tools.Managers;
 
 namespace CSharpPractice4.Models
 {
+    [Serializable]
     internal class Person
     {
         private static readonly string[] WesternSigns = { "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn" };
@@ -12,7 +17,7 @@ namespace CSharpPractice4.Models
         private string _name;
         private string _surname;
         private string _email;
-        private DateTime _birthday;
+        private readonly DateTime _birthday;
         private readonly string _isBirthdayToday;
         private readonly string _isAdult;
         private readonly string _westernSign;
@@ -24,31 +29,71 @@ namespace CSharpPractice4.Models
 
         public string Name
         {
-            set { _name = value; }
+            set
+            {
+                try
+                {
+                    ValidateNameAttribute(value);
+                }
+                catch(InvalidNameAttributeException e)
+                {
+                    MessageBox.Show(e.Message);
+                    return;
+                }
+
+                _name = value;
+                StationManager.DataStorage.SaveChanges();
+            }
             get { return _name; }
         }
 
         public string Surname
         {
-            set { _surname = value;}
+            set
+            {
+                try
+                {
+                    ValidateNameAttribute(value);
+                }
+                catch(InvalidNameAttributeException e)
+                {
+                    MessageBox.Show(e.Message);
+                    return;
+                }
+
+                _surname = value;
+                StationManager.DataStorage.SaveChanges();
+            }
             get { return _surname; }
         }
 
         public string Email
         {
-            set { _email = value;}
+            set
+            {
+                try
+                {
+                    ValidateEmail(value);
+                }
+                catch (InvalidEmailException e)
+                {
+                    MessageBox.Show(e.Message);
+                    return;
+                }
+
+                _email = value;
+                StationManager.DataStorage.SaveChanges();
+            }
             get { return _email; }
         }
 
-        public DateTime Birthday
+        public string Birthday
         {
-            set { _birthday = value;}
-            get { return _birthday; }
+            get { return _birthday.ToShortDateString(); }
         }
 
         public string IsAdult
         {
-
             get
             {
                 return _isAdult;
@@ -89,14 +134,17 @@ namespace CSharpPractice4.Models
 
         internal Person(string name, string surname, string email, DateTime birthday)
         {
-            _name = name;
-            _surname = surname;
-            _email = email;
+            Name = name;
+            Surname = surname;
+            Email = email;
+            ValidateDate(birthday);
             _birthday = birthday;
             _isAdult = SetIsAdult();
             _isBirthdayToday = SetIsBirthday();
             _chineseSign = SetChineseSign();
             _westernSign = SetWesternSign();
+            
+
         }
 
 
@@ -139,6 +187,36 @@ namespace CSharpPractice4.Models
             if (DateTime.Today.Month == _birthday.Month && DateTime.Today.Day == _birthday.Day)
                 return "Today";
             return "Not today";
+        }
+
+        #endregion
+
+        #region Validation
+
+       
+
+        private static void ValidateNameAttribute(string name)
+        {
+            if (!Regex.IsMatch(name, @"^[a-zA-Z]+$"))
+                throw new InvalidNameAttributeException(name);
+
+        }
+
+        private void ValidateEmail(string email)
+        {
+            if (!Regex.IsMatch(email,
+                @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                RegexOptions.IgnoreCase))
+                throw new InvalidEmailException(email);
+        }
+
+        private void ValidateDate(DateTime birthday)
+        {
+            if (birthday > DateTime.Today)
+                throw new PersonNotBornException(birthday);
+            if (birthday.Year < (DateTime.Today.Year - 135))
+                throw new PersonTooOldException(birthday);
         }
 
         #endregion

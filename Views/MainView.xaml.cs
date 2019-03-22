@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using CSharpPractice4.Tools.Navigation;
+using CSharpPractice4.ViewModels;
 
 namespace CSharpPractice4.Views
 {
@@ -11,6 +12,7 @@ namespace CSharpPractice4.Views
         public MainView()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

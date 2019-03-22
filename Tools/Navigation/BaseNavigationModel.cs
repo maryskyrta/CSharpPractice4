@@ -29,8 +29,11 @@ namespace CSharpPractice4.Tools.Navigation
 
         public void Navigate(ViewType viewType)
         {
-            if (!ViewsDictionary.ContainsKey(viewType))
-                InitializeView(viewType);
+            if (ViewsDictionary.ContainsKey(viewType))
+            {
+                ViewsDictionary.Remove(viewType);
+            }
+            InitializeView(viewType);
             ContentOwner.ContentControl.Content = ViewsDictionary[viewType];
         }
 
