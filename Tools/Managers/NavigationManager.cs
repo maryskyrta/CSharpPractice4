@@ -1,5 +1,4 @@
-﻿
-using CSharpPractice4.Tools.Navigation;
+﻿using CSharpPractice4.Tools.Navigation;
 
 namespace CSharpPractice4.Tools.Managers
 {

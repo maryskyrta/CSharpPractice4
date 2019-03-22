@@ -8,7 +8,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding Persons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" ColumnWidth ="*"  AutoGenerateColumns="False" SelectedItem ="{Binding SelectedPerson, Mode = TwoWay}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height ="6*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Expander Grid.Row="0" Grid.ColumnSpan="3" Header="Sort">
+            <StackPanel CanVerticallyScroll="True">
+                <TextBlock Text ="Sort by" HorizontalAlignment="Center"></TextBlock>
+                <ComboBox IsEditable="False" ItemsSource="{Binding SortFields, Mode=OneWay}" IsReadOnly="true" MaxWidth="150" Text ="{Binding SortBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    
+                </ComboBox>
+            </StackPanel>
+        </Expander>
+        <Expander Grid.Row ="1" Grid.ColumnSpan="3" Header="Filter">
+            <StackPanel></StackPanel>
+        </Expander>
+        <DataGrid Grid.ColumnSpan="2" Grid.Row="2" ItemsSource="{Binding Persons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" ColumnWidth ="*"  AutoGenerateColumns="False" SelectedItem ="{Binding SelectedPerson, Mode = TwoWay}" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name"  Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Surname" Width ="Auto"  Binding="{Binding Surname}"></DataGridTextColumn>

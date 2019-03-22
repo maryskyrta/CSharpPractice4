@@ -13,5 +13,7 @@ namespace CSharpPractice4.Views
             InitializeComponent();
             DataContext = new PersonListViewModel();
         }
+
+        
     }
 }

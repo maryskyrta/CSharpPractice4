@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using CSharpPractice4.Tools.Managers;
+﻿using CSharpPractice4.Tools.Managers;
 using CSharpPractice4.Tools.Navigation;
 using CSharpPractice4.Views;
 
@@ -42,7 +36,9 @@ namespace CSharpPractice4.ViewModels
         private void RemovePerson(object obj)
         {
             StationManager.DataStorage.RemovePerson(PersonListViewModel.SelectedPerson);
-            NavigationManager.Instance.Navigate(ViewType.Main);
+            
+            //PersonList.
+            //NavigationManager.Instance.Navigate(ViewType.Main);
         }
 
         
