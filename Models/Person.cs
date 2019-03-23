@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Text.RegularExpressions;
 using System.Windows;
 using CSharpPractice4.Tools.Exceptions;
@@ -203,7 +202,7 @@ namespace CSharpPractice4.Models
 
         }
 
-        private void ValidateEmail(string email)
+        private static void ValidateEmail(string email)
         {
             if (!Regex.IsMatch(email,
                 @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
@@ -212,7 +211,7 @@ namespace CSharpPractice4.Models
                 throw new InvalidEmailException(email);
         }
 
-        private void ValidateDate(DateTime birthday)
+        private static void ValidateDate(DateTime birthday)
         {
             if (birthday > DateTime.Today)
                 throw new PersonNotBornException(birthday);

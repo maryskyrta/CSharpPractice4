@@ -3,8 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
 using CSharpPractice4.Models;
 using CSharpPractice4.Tools.Managers;
 using CSharpPractice4.Tools.Navigation;
@@ -14,16 +12,9 @@ namespace CSharpPractice4.ViewModels
     internal class PersonListViewModel:INotifyPropertyChanged
     {
         #region Fields
-        private static readonly List<string> WesternSignsList = new List<string>{ "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn","Default" };
-        private static readonly List<string> ChineseSignsList = new List<string>{ "Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Default" };
-        private static readonly List<string> SortFieldsList= new List<string>{"Name","Surname","Email","Birthday Date","Birthday","Adult","Western Sign", "Chinese Sign", "No sort"};
+
         private string _sortBy;
         private ObservableCollection<Person> _persons;
-        private Person _selectedPerson;
-        private bool _isAdultSelected;
-        private bool _isBirthdayTodaySelected;
-        private string _westernSignSelected;
-        private string _chineseSignSelected;
         private RelayCommand<object> _applyFilters;
         private RelayCommand<object> _discardFilters;
         private RelayCommand<object> _removePersonCommand;
@@ -44,14 +35,7 @@ namespace CSharpPractice4.ViewModels
             }
         }
 
-        public Person SelectedPerson
-        {
-            get { return _selectedPerson; }
-            set
-            {
-                _selectedPerson = value;
-            }
-        }
+        public Person SelectedPerson { get; set; }
 
         public string SortBy
         {
@@ -63,34 +47,15 @@ namespace CSharpPractice4.ViewModels
             }
         }
 
-        public static List<string> SortFields
-        {
-            get { return SortFieldsList; }
-           
-        }
+        public static List<string> SortFields { get; } = new List<string>{"Name","Surname","Email","Birthday Date","Birthday","Adult","Western Sign", "Chinese Sign", "No sort"};
 
-        public bool IsAdultSelected
-        {
-            get { return _isAdultSelected; }
-            set { _isAdultSelected = value; }
-        }
+        public bool IsAdultSelected { get; set; }
 
-        public bool IsBirthdayTodaySelected
-        {
-            get { return _isBirthdayTodaySelected; }
-            set { _isBirthdayTodaySelected = value; }
-        }
+        public bool IsBirthdayTodaySelected { get; set; }
 
-        public static List<string> WesternSigns
-        {
-            get { return WesternSignsList; }
-            
-        }
+        public static List<string> WesternSigns { get; } = new List<string>{ "Aquarius", "Pisces", "Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn","Default" };
 
-        public static List<string> ChineseSigns
-        {
-            get { return ChineseSignsList; }
-        }
+        public static List<string> ChineseSigns { get; } = new List<string>{ "Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Default" };
 
         public RelayCommand<object> ApplyFilters
         {
@@ -108,10 +73,6 @@ namespace CSharpPractice4.ViewModels
             {
                 return _discardFilters ?? (_discardFilters = new RelayCommand<object>((obj) => {
                     Persons = new ObservableCollection<Person>(StationManager.DataStorage.PersonsList);
-                    //WesternSignSelected = "Default";
-                    //ChineseSignSelected = "Default";
-                    //IsAdultSelected = false;
-                    //IsBirthdayTodaySelected = false;
                 }));
             }
         }
@@ -135,31 +96,23 @@ namespace CSharpPractice4.ViewModels
 
         }
 
-        private bool CanRemoveExecute(object obj)
-        {
-            return _selectedPerson != null;
-        }
-
         
 
-        public string WesternSignSelected
-        {
-            get { return _westernSignSelected; }
-            set { _westernSignSelected = value; }
-        }
+        public string WesternSignSelected { get; set; }
 
-        public string ChineseSignSelected
-        {
-            get { return _chineseSignSelected; }
-            set { _chineseSignSelected = value; }
-        }
+        public string ChineseSignSelected { get; set; }
 
         #endregion
+
+        #region Constructor
 
         internal PersonListViewModel()
         {
             _persons = new ObservableCollection<Person>(StationManager.DataStorage.PersonsList);
         }
+
+        #endregion
+
 
 
         #region  INotifyPropertyChanged
@@ -176,10 +129,14 @@ namespace CSharpPractice4.ViewModels
 
         #region Helping methods
 
-      
+        private bool CanRemoveExecute(object obj)
+        {
+            return SelectedPerson != null;
+        }
 
         private void SortPersons()
         {
+
             switch (_sortBy)
             {
                 case "Name":
@@ -232,27 +189,27 @@ namespace CSharpPractice4.ViewModels
         private void FilterPersons()
         {
             Persons = new ObservableCollection<Person>(StationManager.DataStorage.PersonsList);
-            if (_isAdultSelected)
+            if (IsAdultSelected)
             {
                 Persons = new ObservableCollection<Person>(from person in _persons
                     where (person.IsAdult == "Adult")
                     select person);
             }
 
-            if (_isBirthdayTodaySelected)
+            if (IsBirthdayTodaySelected)
             {
                 Persons = new ObservableCollection<Person>(from person in _persons
                     where (person.IsBirthdayToday == "Today")
                     select person);
             }
 
-            if (_westernSignSelected != "Default"&& _westernSignSelected != null)
+            if (WesternSignSelected != "Default"&& WesternSignSelected != null)
             {
                 Persons = new ObservableCollection<Person>(from person in _persons
                     where person.WesternSign == WesternSignSelected
                     select person);
             }
-            if (_chineseSignSelected != "Default" && _chineseSignSelected != null)
+            if (ChineseSignSelected != "Default" && ChineseSignSelected != null)
             {
                 Persons = new ObservableCollection<Person>(from person in _persons
                     where person.ChineseSign == ChineseSignSelected
@@ -262,8 +219,8 @@ namespace CSharpPractice4.ViewModels
 
         private void RemovePerson(object obj)
         {
-            StationManager.DataStorage.RemovePerson(_selectedPerson);
-            _persons.Remove(_selectedPerson);
+            StationManager.DataStorage.RemovePerson(SelectedPerson);
+            _persons.Remove(SelectedPerson);
             OnPropertyChanged(nameof(_persons));
         }
 

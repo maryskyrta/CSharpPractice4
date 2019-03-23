@@ -1,12 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using CSharpPractice4.Models;
-using CSharpPractice4.Tools.Exceptions;
 using CSharpPractice4.Tools.Managers;
 using CSharpPractice4.Tools.Navigation;
 
@@ -70,8 +68,7 @@ namespace CSharpPractice4.ViewModels
         private async void ProceedInput(object obj)
         {
             Person person = null;
-            //LoaderManager.Instance.ShowLoader();
-            //var result =
+            LoaderManager.Instance.ShowLoader();
             await Task.Run(() =>
             {
                 Thread.Sleep(2000);
@@ -82,27 +79,16 @@ namespace CSharpPractice4.ViewModels
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
-                   // return false;
+                   
                 }
-                //return true;
+                
             });
-            //LoaderManager.Instance.HideLoader();
-            //if (!result) return;
-            if (person != null)
-            {
-                StationManager.DataStorage.AddPerson(person);
-                NavigationManager.Instance.Navigate(ViewType.List);
-            }
-
-            //NavigationManager.Instance.Navigate(ViewType.Output);
+            LoaderManager.Instance.HideLoader();
+            if (person == null) return;
+            StationManager.DataStorage.AddPerson(person);
+            NavigationManager.Instance.Navigate(ViewType.List);
         }
 
-
-
-        internal AddPersonViewModel()
-        {
-            //LoaderManager.Instance.Initialize(this);
-        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

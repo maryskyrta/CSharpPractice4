@@ -16,7 +16,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="50 0" Text="Enter name:" FontSize="20" Foreground="MidnightBlue"></TextBlock>
         <TextBox Grid.Row="1" FontSize="16" Margin="50 1" Text ="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
