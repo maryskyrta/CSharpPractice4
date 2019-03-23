@@ -42,6 +42,7 @@ namespace CSharpPractice4.Models
                 }
 
                 _name = value;
+                if (StationManager.DataStorage!=null)
                 StationManager.DataStorage.SaveChanges();
             }
             get { return _name; }
@@ -62,7 +63,8 @@ namespace CSharpPractice4.Models
                 }
 
                 _surname = value;
-                StationManager.DataStorage.SaveChanges();
+                if (StationManager.DataStorage != null)
+                    StationManager.DataStorage.SaveChanges();
             }
             get { return _surname; }
         }
@@ -82,7 +84,8 @@ namespace CSharpPractice4.Models
                 }
 
                 _email = value;
-                StationManager.DataStorage.SaveChanges();
+                if (StationManager.DataStorage != null)
+                    StationManager.DataStorage.SaveChanges();
             }
             get { return _email; }
         }
