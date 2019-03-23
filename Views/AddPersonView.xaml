@@ -8,15 +8,15 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White" IsEnabled="{Binding IsControlEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="50 0" Text="Enter name:" FontSize="20" Foreground="MidnightBlue"></TextBlock>
         <TextBox Grid.Row="1" FontSize="16" Margin="50 1" Text ="{Binding Name, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
@@ -26,7 +26,7 @@
         <TextBox Grid.Row="5" FontSize="16" Margin="50 1" Text ="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"></TextBox>
         <TextBlock Grid.Row="6" Margin="50 0"  Text="Enter birthday date:" FontSize="20" Foreground="MidnightBlue"></TextBlock>
         <DatePicker Grid.Row="7" Margin="50 0" HorizontalAlignment="Left" MinWidth="150" FontSize="16" SelectedDate ="{Binding Birthday,UpdateSourceTrigger=PropertyChanged, Mode = OneWayToSource}"></DatePicker>
-        <Button   HorizontalAlignment ="Right" VerticalContentAlignment ="Center"  VerticalAlignment="Bottom" Grid.Row="8" Margin="0 0 50 10" Background="WhiteSmoke" Foreground="MidnightBlue" BorderThickness="0"  ToolTip="Proceed information" MaxHeight="30" MaxWidth="200" Content="Proceed" FontSize="18" Command="{Binding ProceedCommand}"></Button>
-        <Button  HorizontalAlignment ="Left" VerticalContentAlignment ="Center"  VerticalAlignment="Bottom" Grid.Row="8" Margin="50 0 0 10" Background="WhiteSmoke" Foreground="MidnightBlue" BorderThickness="0"  ToolTip="Return to person list" MaxHeight="30" MaxWidth="200" Content="Return" FontSize="18" Command="{Binding ReturnCommand}"></Button>
+        <Button   HorizontalAlignment ="Right" VerticalContentAlignment ="Center"  VerticalAlignment="Bottom" Grid.Row="8" Margin="0 0 50 10" Background="WhiteSmoke" Foreground="MidnightBlue" BorderThickness="0"  ToolTip="Proceed information" MaxHeight="40" MinWidth="150" Content="Proceed" FontSize="18" Command="{Binding ProceedCommand}"></Button>
+        <Button  HorizontalAlignment ="Left" VerticalContentAlignment ="Center"  VerticalAlignment="Bottom" Grid.Row="8" Margin="50 0 0 10" Background="WhiteSmoke" Foreground="MidnightBlue" BorderThickness="0"  ToolTip="Return to person list" MaxHeight="40" MinWidth="150" Content="Return" FontSize="18" Command="{Binding ReturnCommand}"></Button>
     </Grid>
 </UserControl>

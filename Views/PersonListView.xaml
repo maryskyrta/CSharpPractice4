@@ -9,9 +9,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height ="8*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height ="6*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -19,14 +20,32 @@
         </Grid.ColumnDefinitions>
         <Expander Grid.Row="0" Grid.ColumnSpan="3" Header="Sort">
             <StackPanel CanVerticallyScroll="True">
-                <TextBlock Text ="Sort by" HorizontalAlignment="Center"></TextBlock>
-                <ComboBox IsEditable="False" ItemsSource="{Binding SortFields, Mode=OneWay}" IsReadOnly="true" MaxWidth="150" Text ="{Binding SortBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBlock Text ="Sort by" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                <ComboBox IsEditable="False" FontSize="15" Background="White" Foreground="MidnightBlue"  ItemsSource="{Binding SortFields, Mode=OneWay}" IsReadOnly="true" MaxWidth="150" Text ="{Binding SortBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     
                 </ComboBox>
             </StackPanel>
         </Expander>
         <Expander Grid.Row ="1" Grid.ColumnSpan="3" Header="Filter">
-            <StackPanel></StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ComboBox Background="White" Foreground="MidnightBlue" Grid.Row="0" Grid.Column="0" Margin="20 5" ItemsSource="{Binding WesternSigns, Mode=OneWay}" Text="{Binding WesternSignSelected, Mode=TwoWay}" ></ComboBox>
+                <ComboBox Background="White" Foreground="MidnightBlue" Grid.Row="0" Grid.Column="1" Margin="20 5" ItemsSource="{Binding ChineseSigns, Mode=OneWay}" Text="{Binding ChineseSignSelected, Mode=TwoWay}"></ComboBox>
+                <CheckBox Grid.Row="0" Grid.Column="2" Margin="20 5" FontSize="15" IsChecked="{Binding IsBirthdayTodaySelected, Mode =TwoWay}" Content ="Birthday today"></CheckBox>
+                <CheckBox Grid.Row="0" Grid.Column="3" Margin="20 5" FontSize="15" IsChecked="{Binding IsAdultSelected, Mode =TwoWay}" Content ="Adult"></CheckBox>
+                <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="30 5" Content ="Discard all filters" Command="{Binding DiscardFilters}" Background="WhiteSmoke" Foreground="MidnightBlue"></Button>
+                <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="30 5" Content ="Apply filters" Command="{Binding ApplyFilters}" Background="WhiteSmoke" Foreground="MidnightBlue"></Button>
+            </Grid>
         </Expander>
         <DataGrid Grid.ColumnSpan="2" Grid.Row="2" ItemsSource="{Binding Persons, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" ColumnWidth ="*"  AutoGenerateColumns="False" SelectedItem ="{Binding SelectedPerson, Mode = TwoWay}" >
             <DataGrid.Columns>
@@ -40,5 +59,7 @@
                 <DataGridTextColumn Header="Chinese Sign" IsReadOnly="True" Binding="{Binding ChineseSign}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Add" Grid.Column="0" Grid.Row="3" Margin="20 5" Command="{Binding AddPersonCommand}" Background="WhiteSmoke" Foreground="MidnightBlue"></Button>
+        <Button Content="Remove" Grid.Column="1" Grid.Row="3"  Margin="20 5" Command="{Binding RemovePersonCommand}" Background="WhiteSmoke" Foreground="MidnightBlue"></Button>
     </Grid>
 </UserControl>

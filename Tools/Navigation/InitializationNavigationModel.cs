@@ -14,8 +14,8 @@ namespace CSharpPractice4.Tools.Navigation
         {
             switch (viewType)
             {
-                case ViewType.Main:
-                    ViewsDictionary.Add(viewType, new MainView());
+                case ViewType.List:
+                    ViewsDictionary.Add(viewType, new PersonListView());
                     break;
                 case ViewType.AddPerson:
                     ViewsDictionary.Add(viewType, new AddPersonView());

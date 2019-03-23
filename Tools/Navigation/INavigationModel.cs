@@ -3,7 +3,7 @@ namespace CSharpPractice4.Tools.Navigation
 {
     internal enum ViewType
     {
-        Main,
+        List,
         AddPerson,
     }
 

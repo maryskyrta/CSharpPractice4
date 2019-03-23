@@ -18,7 +18,7 @@ namespace CSharpPractice4
             DataContext = new MainWindowViewModel();
             StationManager.Initialize(new DataStorage());
             NavigationManager.Instance.Initialize(new InitializationNavigationModel(this));
-            NavigationManager.Instance.Navigate(ViewType.Main);
+            NavigationManager.Instance.Navigate(ViewType.List);
         }
 
         public ContentControl ContentControl

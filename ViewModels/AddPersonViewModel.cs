@@ -46,7 +46,7 @@ namespace CSharpPractice4.ViewModels
             {
                 return _returnCommand ?? (_returnCommand = new RelayCommand<object>((obj) =>
                            {
-                               NavigationManager.Instance.Navigate(ViewType.Main);
+                               NavigationManager.Instance.Navigate(ViewType.List);
                            }));
             }
            
@@ -91,7 +91,7 @@ namespace CSharpPractice4.ViewModels
             if (person != null)
             {
                 StationManager.DataStorage.AddPerson(person);
-                NavigationManager.Instance.Navigate(ViewType.Main);
+                NavigationManager.Instance.Navigate(ViewType.List);
             }
 
             //NavigationManager.Instance.Navigate(ViewType.Output);

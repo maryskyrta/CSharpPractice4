@@ -74,14 +74,10 @@
     <Compile Include="Tools\Navigation\InitializationNavigationModel.cs" />
     <Compile Include="Tools\RandomPersonGenerator.cs" />
     <Compile Include="ViewModels\AddPersonViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PersonListViewModel.cs" />
     <Compile Include="Views\AddPersonView.xaml.cs">
       <DependentUpon>AddPersonView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PersonListView.xaml.cs">
       <DependentUpon>PersonListView.xaml</DependentUpon>
@@ -99,10 +95,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddPersonView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
